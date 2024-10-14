@@ -35,7 +35,7 @@ export const useOnBoarding = () => {
       await AsyncStorage.setItem('isOnboardingCompleted', 'true');
       console.log('Getting Started Button Clicked');
 
-      navigation.dispatch(StackActions.replace('LoginWithPhoneNo'));
+      navigation.dispatch(StackActions.replace('LoginWithEmail'));
     } catch (error) {
       console.error('Error storing onboarding status:', error);
     }

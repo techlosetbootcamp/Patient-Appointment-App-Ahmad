@@ -16,7 +16,7 @@ export const useSplash = () => {
         if (appData === null) {
           navigation.dispatch(StackActions.replace('OnBoarding'));
         } else {
-          navigation.dispatch(StackActions.replace('LoginWithPhoneNo'));
+          navigation.dispatch(StackActions.replace('LoginWithEmail'));
         }
       } catch (error) {
         console.error('Error checking first launch:', error);

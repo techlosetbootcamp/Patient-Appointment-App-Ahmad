@@ -13,10 +13,9 @@ import {NavigationContainer} from '@react-navigation/native';
 import Navigation from './src/navigation/Navigation';
 import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const client = new ApolloClient({
-  uri: 'http://192.168.100.26:8000/graphql',
-  cache: new InMemoryCache(),
-});
+import {client} from './src/lib/client/Client';
+import Toast from 'react-native-toast-message';
+
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -59,6 +58,7 @@ function App(): React.JSX.Element {
     <ApolloProvider client={client}>
       <NavigationContainer>
         <Navigation />
+        <Toast />
       </NavigationContainer>
     </ApolloProvider>
   );

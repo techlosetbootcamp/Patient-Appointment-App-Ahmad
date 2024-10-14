@@ -12,6 +12,7 @@ export type RootStackParamList = {
   LoginWithEmail: undefined;
   Signup: undefined;
   verifyOTP: undefined;
+  forgotPassword: undefined;
 };
 export type OnBoardingTypes = {
   id: string;
@@ -36,11 +37,15 @@ export type AuthPageProps = {
   anotherPage?: boolean;
   children: React.ReactNode;
 };
+export enum Role {
+  DOCTOR = 'DOCTOR',
+  PATIENT = 'PATIENT',
+}
 export type InputTypes = {
   label: string;
   labelSecondryColor?: boolean;
   value: string;
-  onChangeText: (text: string) => void;
+  onChangeText: (text: string | Role) => void;
   isPassword?: boolean;
   keyboardType?: KeyboardTypeOptions;
   isWidthHalf?: boolean;
@@ -52,4 +57,18 @@ export type PhoneNumberInputTypes = {
   value: number;
   onChangeText: (text: string) => void;
   keyboardType: KeyboardTypeOptions;
+};
+export type CountrieType = {
+  name: string;
+  code: string;
+  dialCode: string;
+  flag: string;
+};
+export type DropDownTypes = {
+  data: string[];
+  isWidthFull?: boolean;
+  isWidthHalf?: boolean;
+  labelSecondryColor?: boolean;
+  selectedValue: string;
+  setSelectedValue: (text: string) => void;
 };

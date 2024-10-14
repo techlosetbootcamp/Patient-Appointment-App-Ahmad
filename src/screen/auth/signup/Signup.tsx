@@ -1,5 +1,13 @@
-import {View, Text, StatusBar, TouchableOpacity} from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  StatusBar,
+  TouchableOpacity,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
+import React, {useState} from 'react';
 import {COLORS} from '../../../constants/colors';
 import AuthPage from '../../../components/authPage/AuthPage';
 import Input from '../../../components/input/Input';
@@ -8,6 +16,8 @@ import PhoneNumberInput from '../../../components/phoneNumberInput/PhoneNumberIn
 import Button from '../../../components/button/Button';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../../../types/Types';
+import DropDown from '../../../components/dropDown/DropDown';
+import {ScrollView} from 'react-native-gesture-handler';
 
 export default function Signup() {
   const {
@@ -21,67 +31,103 @@ export default function Signup() {
     setPassword,
     setPhoneNo,
     setRole,
+    submitHandler,
+    ROLE,
+    error,
+    selectedCountryCode,
+    setSelectedCountryCode,
+    errorstate,
+    loading,
   } = useSignup();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const submitHandler = () => {
-    console.log('Data', {name, email, password, role, phoneNo});
-  };
+
   return (
-    <View style={{flex: 1, backgroundColor: 'white'}}>
-      <AuthPage goBack title="Sign Up">
-        <View
-          style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'row',
+    <KeyboardAvoidingView
+      style={{flex: 1}}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}>
+      <ScrollView
+        style={{flex: 1, backgroundColor: 'white'}}
+        bounces={false}
+        scrollEnabled={false}>
+        <View style={{flex: 1, backgroundColor: 'white'}}>
+          <AuthPage goBack title="Sign Up">
+            <View
+              style={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <Input
+                label="Name"
+                value={name}
+                onChangeText={setName}
+                keyboardType="ascii-capable"
+                isWidthHalf
+              />
+              {/* <Input label="Role" value={role} onChangeText={setRole} isWidthHalf /> */}
+              <DropDown
+                isWidthHalf
+                data={ROLE}
+                selectedValue={role}
+                setSelectedValue={setRole}
+              />
+            </View>
+            <Input
+              label="Email"
+              value={email}
+              onChangeText={setEmail}
+              inputMode="email"
+              keyboardType="email-address"
+            />
+            <PhoneNumberInput
+              label="Phone Number"
+              value={phoneNo}
+              onChange={setPhoneNo}
+              selectedCountryCode={selectedCountryCode}
+              setSelectedCountryCode={setSelectedCountryCode}
+            />
 
-            justifyContent: 'space-between',
-          }}>
-          <Input
-            label="Name"
-            value={name}
-            onChangeText={setName}
-            keyboardType="ascii-capable"
-            isWidthHalf
-          />
-          <Input label="Role" value={role} onChangeText={setRole} isWidthHalf />
-        </View>
-        <Input
-          label="Email"
-          value={email}
-          onChangeText={setEmail}
-          inputMode="email"
-          keyboardType="email-address"
-        />
-        <PhoneNumberInput
-          label="Phone Number"
-          value={phoneNo}
-          onChange={setPhoneNo}
-        />
+            <Input
+              label="Password"
+              value={password}
+              isPassword
+              onChangeText={setPassword}
+            />
 
-        <Input
-          label="Password"
-          value={password}
-          isPassword
-          onChangeText={setPassword}
-        />
-        <View style={{marginTop: '15%'}}>
-          <Button title="Create an Account" onPress={submitHandler} />
+            {errorstate && (
+              <Text
+                style={{
+                  fontSize: 12,
+                  fontStyle: 'italic',
+                  marginVertical: 4,
+                  color: 'red',
+                }}>
+                {errorstate}
+              </Text>
+            )}
+            <View style={{marginTop: '15%'}}>
+              <Button
+                title={loading ? 'Loading...' : 'Create an Account'}
+                onPress={submitHandler}
+              />
+            </View>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                marginTop: 5,
+                justifyContent: 'center',
+              }}>
+              <Text>Already Have an account?</Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('LoginWithEmail')}>
+                <Text style={{color: COLORS.primary}}> Login</Text>
+              </TouchableOpacity>
+            </View>
+          </AuthPage>
         </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            marginTop: 5,
-            justifyContent: 'center',
-          }}>
-          <Text>Already Have an account?</Text>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('LoginWithEmail')}>
-            <Text style={{color: COLORS.primary}}> Login</Text>
-          </TouchableOpacity>
-        </View>
-      </AuthPage>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }

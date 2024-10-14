@@ -1,55 +1,106 @@
-import React, {useState, useRef} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import PhoneInput from 'react-native-phone-number-input';
-import {COLORS} from '../../constants/colors';
+import React, { useState } from 'react';
+import {
+  FlatList,
+  Modal,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { COLORS } from '../../constants/colors';
+import { countries } from '../../constants/countries';
+import { CountrieType } from '../../types/Types';
 
 interface PhoneNumberInputProps {
   label: string;
   onChange: (phoneNumber: string) => void;
-  value: number;
+  value: string;
   showValidation?: boolean;
+  selectedCountryCode?: string;
+  setSelectedCountryCode: (code: string) => void;
 }
 
 const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
-  label = 'Add Data',
+  label,
   onChange,
   value,
   showValidation = true,
+  selectedCountryCode,
+  setSelectedCountryCode,
 }) => {
-  const [isValid, setIsValid] = useState(true);
-  const phoneInputRef = useRef<PhoneInput>(null);
+  const [showModal, setShowModal] = useState(false);
 
-  const handleInputChange = (text: string) => {
-    const checkValid = phoneInputRef.current?.isValidNumber(text);
-    setIsValid(!!checkValid);
-
-    const fullPhoneNumber =
-      phoneInputRef.current?.getNumberAfterPossiblyEliminatingZero();
-
-    if (fullPhoneNumber?.formattedNumber) {
-      onChange(fullPhoneNumber.formattedNumber);
-    } else {
-      onChange(text);
-    }
+  const handleShowModal = () => {
+    setShowModal(!showModal);
+  };
+  const handleCountrySelect = (country: CountrieType) => {
+    setSelectedCountryCode(country.dialCode);
+    setShowModal(false);
   };
 
+  const Countrie = (item: {item: CountrieType}) => (
+    <TouchableOpacity
+      style={{
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderBottomColor: 'black',
+        borderBottomWidth: 0.5,
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: 10,
+      }}
+      onPress={() => handleCountrySelect(item.item)}>
+      <Text style={{fontSize: 20}}>{item.item.flag}</Text>
+      <Text>{item.item.name}</Text>
+      <Text>{item.item.dialCode}</Text>
+    </TouchableOpacity>
+  );
   return (
     <View style={{marginTop: 12}}>
       <Text style={[styles.label]}>{label}</Text>
-      <PhoneInput
-        ref={phoneInputRef}
-        defaultCode="PK"
-        layout="second"
-        value={value.toString()}
-        onChangeText={handleInputChange}
-        flagButtonStyle={styles.flagButtonStyle}
-        containerStyle={styles.containerStyle}
-        textInputStyle={styles.textInputStyle}
-        textContainerStyle={styles.textContainerStyle}
-      />
-
-      {showValidation && !isValid && (
-        <Text style={styles.errorText}>Invalid phone number</Text>
+      <View
+        style={{
+          backgroundColor: COLORS.inputBg,
+          borderRadius: 10,
+          display: 'flex',
+          alignItems: 'center',
+          flexDirection: 'row',
+          paddingHorizontal: 15,
+        }}>
+        <TouchableOpacity
+          onPress={handleShowModal}
+          style={{borderRightWidth: 2, borderColor: 'gray', height: 20}}>
+          <Text style={{marginRight: 15}}>
+            <Text>{selectedCountryCode}</Text>
+            <MaterialIcons name="arrow-drop-down" />
+          </Text>
+        </TouchableOpacity>
+        <TextInput
+          inputMode="tel"
+          value={value}
+          style={{width: '80%', color: 'gray'}}
+          onChangeText={onChange}
+        />
+      </View>
+      {showModal && (
+        <Modal style={{width: '80%', backgroundColor: 'salmon'}}>
+          <TouchableOpacity onPress={handleShowModal}>
+            <Text style={{textAlign: 'right'}}>
+              <Ionicons name="close-sharp" size={40} />
+            </Text>
+          </TouchableOpacity>
+          <FlatList
+            data={countries}
+            renderItem={(item: {item: CountrieType}) => (
+              <Countrie item={item.item} />
+            )}
+            keyExtractor={item => item.code}
+          />
+        </Modal>
       )}
     </View>
   );
