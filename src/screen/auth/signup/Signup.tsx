@@ -44,11 +44,8 @@ export default function Signup() {
   return (
     <KeyboardAvoidingView
       style={{flex: 1}}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}>
-      <ScrollView
-        style={{flex: 1, backgroundColor: 'white'}}
-        bounces={false}
-        scrollEnabled={false}>
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <ScrollView style={{flex: 1, backgroundColor: 'white'}} bounces={false}>
         <View style={{flex: 1, backgroundColor: 'white'}}>
           <AuthPage goBack title="Sign Up">
             <View
@@ -65,7 +62,6 @@ export default function Signup() {
                 keyboardType="ascii-capable"
                 isWidthHalf
               />
-              {/* <Input label="Role" value={role} onChangeText={setRole} isWidthHalf /> */}
               <DropDown
                 isWidthHalf
                 data={ROLE}

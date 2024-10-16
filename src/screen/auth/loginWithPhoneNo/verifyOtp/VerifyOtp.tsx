@@ -1,12 +1,12 @@
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import React from 'react';
-import AuthPage from '../../../components/authPage/AuthPage';
-import {COLORS} from '../../../constants/colors';
 import {useVerifyOTP} from './useVerifyOTP';
-import {VerifyOTPStyles} from './VerifyOTPStyles';
-import Button from '../../../components/button/Button';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../../types/Types';
+import {RootStackParamList} from '../../../../types/Types';
+import AuthPage from '../../../../components/authPage/AuthPage';
+import {COLORS} from '../../../../constants/colors';
+import {VerifyOTPStyles} from './VerifyOTPStyles';
+import Button from '../../../../components/button/Button';
 
 const VerifyOtp = () => {
   const {
@@ -22,9 +22,12 @@ const VerifyOtp = () => {
     setInput2,
     setInput3,
     setInput4,
+    navigation,
+    submitHandler,
+    errorState,
+    loading,
   } = useVerifyOTP();
-  const submitHandler = () => {};
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <AuthPage title="Verify OTP" goBack>
@@ -103,8 +106,22 @@ const VerifyOtp = () => {
             />
           </View>
         </View>
+        {errorState && (
+          <Text
+            style={{
+              fontSize: 12,
+              fontStyle: 'italic',
+              marginVertical: 4,
+              color: 'red',
+            }}>
+            {errorState}
+          </Text>
+        )}
         <View style={{marginTop: 25}}>
-          <Button title="Validate OTP" onPress={submitHandler} />
+          <Button
+            title={loading ? 'Loading...' : 'Validate OTP'}
+            onPress={submitHandler}
+          />
         </View>
         <View
           style={{

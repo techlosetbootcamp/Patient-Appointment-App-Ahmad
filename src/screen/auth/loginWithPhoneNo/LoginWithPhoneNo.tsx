@@ -6,14 +6,19 @@ import Button from '../../../components/button/Button';
 import PhoneNumberInput from '../../../components/phoneNumberInput/PhoneNumberInput';
 import {COLORS} from '../../../constants/colors';
 import {RootStackParamList} from '../../../types/Types';
+import {useLoginWithPhoneNo} from './useLoginWithPhoneNo';
 
 export default function LoginWithPhoneNo() {
-  const [phoneNumber, setPhoneNumber] = useState<string>('');
-  const [selectedCountryCode, setSelectedCountryCode] = useState('+92');
-  const onSubmit = () => {
-    console.log('PhoneNo', `${selectedCountryCode}${phoneNumber}`);
-  };
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const {
+    navigation,
+    onSubmit,
+    phoneNumber,
+    selectedCountryCode,
+    setPhoneNumber,
+    setSelectedCountryCode,
+    errorState,
+    loading,
+  } = useLoginWithPhoneNo();
   return (
     <View style={{flex: 1}}>
       <AuthPage title="Login" goBack>
@@ -24,12 +29,21 @@ export default function LoginWithPhoneNo() {
           selectedCountryCode={selectedCountryCode}
           setSelectedCountryCode={setSelectedCountryCode}
         />
+        {errorState && (
+          <Text
+            style={{
+              fontSize: 12,
+              fontStyle: 'italic',
+              marginVertical: 4,
+              color: 'red',
+            }}>
+            {errorState}
+          </Text>
+        )}
         <View style={{marginTop: 25}}>
           <Button
-            title="Send OTP"
+            title={loading ? 'Loading...' : 'Send OTP'}
             onPress={() => {
-              // navigation.navigate('verifyOTP'),
-
               onSubmit();
             }}
           />

@@ -14,8 +14,6 @@ export const SIGN_UP = gql`
       password: $password
       phoneNo: $phoneNo
       role: $role
-    ) {
-      name
-    }
+    )
   }
 `;

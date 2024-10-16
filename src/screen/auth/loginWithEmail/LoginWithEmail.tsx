@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import AuthPage from '../../../components/authPage/AuthPage';
 import Input from '../../../components/input/Input';
@@ -7,6 +7,7 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import Button from '../../../components/button/Button';
 import {RootStackParamList} from '../../../types/Types';
 import {useLoginWithEmail} from './useLoginWithEmail';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginWithEmail = () => {
   const {
@@ -20,29 +21,42 @@ const LoginWithEmail = () => {
   } = useLoginWithEmail();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
+  // const [token, setToken] = useState<string | null>(null);
+
+  // useEffect(() => {
+  //   const fetchToken = async () => {
+  //     try {
+  //       const storedToken = await AsyncStorage.getItem('authToken');
+  //       setToken(storedToken);
+  //     } catch (error) {
+  //       console.log('Error fetching token:', error);
+  //     }
+  //   };
+
+  //   fetchToken();
+  // }, []);
+
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <AuthPage title="Login With Email">
+        {/* <Text>{token}</Text> */}
         <Input
           label="Email"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
         />
-
         <Input
           label="Password"
           value={password}
           isPassword
           onChangeText={setPassword}
         />
-
         <TouchableOpacity
           style={{display: 'flex', alignItems: 'flex-end', marginTop: 10}}
-          onPress={() => navigation.navigate('forgotPassword')}>
+          onPress={() => navigation.navigate('ForgotPassword')}>
           <Text style={{color: COLORS.primary}}>Forgot Password?</Text>
         </TouchableOpacity>
-
         {errorState && (
           <Text
             style={{
@@ -76,8 +90,7 @@ const LoginWithEmail = () => {
               justifyContent: 'center',
             }}>
             <Text>Don't Have an account?</Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('LoginWithPhoneNo')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
               <Text style={{color: COLORS.primary}}> Sign Up</Text>
             </TouchableOpacity>
           </View>

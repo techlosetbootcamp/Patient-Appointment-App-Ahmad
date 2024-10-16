@@ -1,3 +1,4 @@
+import {RouteProp} from '@react-navigation/native';
 import {
   ImageSourcePropType,
   InputModeOptions,
@@ -11,8 +12,16 @@ export type RootStackParamList = {
   LoginWithPhoneNo: undefined;
   LoginWithEmail: undefined;
   Signup: undefined;
-  verifyOTP: undefined;
-  forgotPassword: undefined;
+  VerifyOTP: {
+    phoneNo?: string;
+  };
+  ForgotPassword: undefined;
+  ForgotPasswordOtp: undefined;
+  NewPassword: {
+    forgotPasswordOtp: string;
+  };
+  Patient: undefined;
+  Doctor: undefined;
 };
 export type OnBoardingTypes = {
   id: string;
@@ -71,4 +80,13 @@ export type DropDownTypes = {
   labelSecondryColor?: boolean;
   selectedValue: string;
   setSelectedValue: (text: string) => void;
+};
+export type NewPasswordRouteProps = RouteProp<
+  RootStackParamList,
+  'NewPassword'
+>;
+export type VerifyOTPRouteProps = RouteProp<RootStackParamList, 'VerifyOTP'>;
+export type DecodedToken = {
+  role: string;
+  email: string;
 };
