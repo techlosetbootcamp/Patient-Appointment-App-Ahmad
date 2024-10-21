@@ -37,7 +37,6 @@ export const useLoginWithEmail = () => {
         Toast.show({
           type: 'success',
           text1: 'Login Successfully',
-          text2: `${token} token`,
         });
         setErrorState('');
       },

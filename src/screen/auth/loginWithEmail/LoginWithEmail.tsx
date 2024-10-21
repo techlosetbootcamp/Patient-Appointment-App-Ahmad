@@ -39,7 +39,7 @@ const LoginWithEmail = () => {
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <AuthPage title="Login With Email">
-        {/* <Text>{token}</Text> */}
+        {/* <Text>Token: {token}</Text> */}
         <Input
           label="Email"
           value={email}

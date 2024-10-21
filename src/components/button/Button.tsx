@@ -13,6 +13,7 @@ const Button: React.FC<ButtonProps> = ({
   borderSecondry,
   textPrimary,
   textSecondry,
+  padding,
 }) => {
   return (
     <TouchableOpacity
@@ -41,7 +42,9 @@ const Button: React.FC<ButtonProps> = ({
       <Text
         style={[
           {color: 'white', fontWeight: '600'},
-
+          padding && {
+            paddingHorizontal: 20,
+          },
           textPrimary && {
             color: COLORS.primary,
           },

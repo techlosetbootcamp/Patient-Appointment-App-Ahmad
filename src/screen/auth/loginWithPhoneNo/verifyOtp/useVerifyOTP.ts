@@ -10,6 +10,7 @@ import {useMutation} from '@apollo/client';
 import {LOGIN_WITH_PHONE_NO} from '../../../../graphql/mutations/loginWithPhoneNo';
 import Toast from 'react-native-toast-message';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 export const useVerifyOTP = () => {
   const [input1, setInput1] = useState('');
@@ -21,7 +22,7 @@ export const useVerifyOTP = () => {
   const inputRef2 = useRef<TextInput>(null);
   const inputRef3 = useRef<TextInput>(null);
   const inputRef4 = useRef<TextInput>(null);
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const route = useRoute<VerifyOTPRouteProps>();
   const {phoneNo} = route.params;
   const otp = {input1, input2, input3, input4};
@@ -32,10 +33,16 @@ export const useVerifyOTP = () => {
     {
       onCompleted: async (data, clientOptions) => {
         console.log('LOGINWITHPHONENO', data);
-        const token = data?.LoginWithEmail;
+        const token = data?.LoginWithPhoneNo;
         if (token) {
           try {
             await AsyncStorage.setItem('authToken', token);
+
+            Toast.show({
+              type: 'success',
+              text1: 'Login Successfully',
+            });
+            navigation.replace('Home');
           } catch (error) {
             console.log('Error while setting token in async Storage');
             setErrorState('Something went wrong');

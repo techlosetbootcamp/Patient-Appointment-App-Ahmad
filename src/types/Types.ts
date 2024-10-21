@@ -1,4 +1,5 @@
 import {RouteProp} from '@react-navigation/native';
+import {IconProps} from 'react-native-vector-icons/Icon';
 import {
   ImageSourcePropType,
   InputModeOptions,
@@ -22,6 +23,9 @@ export type RootStackParamList = {
   };
   Patient: undefined;
   Doctor: undefined;
+  SearchAppointments: undefined;
+  SearchPatients: undefined;
+  DoctorUnavailability: undefined;
 };
 export type OnBoardingTypes = {
   id: string;
@@ -38,6 +42,7 @@ export type ButtonProps = {
   borderSecondry?: boolean;
   textPrimary?: boolean;
   textSecondry?: boolean;
+  padding?: boolean;
 };
 export type AuthPageProps = {
   goBack?: boolean;
@@ -89,4 +94,34 @@ export type VerifyOTPRouteProps = RouteProp<RootStackParamList, 'VerifyOTP'>;
 export type DecodedToken = {
   role: string;
   email: string;
+};
+export type BottomTabTypes = {
+  focused: boolean;
+  title: string;
+  IconProps: React.ComponentType<any>;
+  iconName: string;
+};
+export enum AppointmentStatus {
+  UPCOMING = 'UPCOMING',
+  IN_PROGRESS = 'IN_PROGRESS',
+  MISSED = 'MISSED',
+  COMPLETED = 'COMPLETED',
+  CANCELLED = 'CANCELLED',
+}
+export type AppointmentInfoType = {
+  profilePicture?: string;
+  name?: string;
+  age?: string;
+  appointmentTime?: string;
+  status?: AppointmentStatus;
+};
+export type PatientsFilterModalProps = {
+  visible: boolean;
+  setVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  children: React.ReactNode;
+};
+export type SegmentedControlProps = {
+  options: string[];
+  selectedOption: string;
+  onOptionPress?: (option: string) => void;
 };

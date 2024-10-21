@@ -10,7 +10,6 @@ import {decodeJwtToken} from '../../utils/decodeJwtToken';
 import {StackNavigationProp} from '@react-navigation/stack';
 
 export const useSplash = async () => {
-  // const [token, setToken] = useState('');
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   useEffect(() => {
     const checkFirstLaunch = async () => {

@@ -1,5 +1,5 @@
 import {createStackNavigator} from '@react-navigation/stack';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import OnBoarding from '../screen/onBoarding/OnBoarding';
 import LoginWithPhoneNo from '../screen/auth/loginWithPhoneNo/LoginWithPhoneNo';
 import Signup from '../screen/auth/signup/Signup';
@@ -14,16 +14,30 @@ import NewPassword from '../screen/auth/resetPassword/newPassword/NewPassword';
 import VerifyOtp from '../screen/auth/loginWithPhoneNo/verifyOtp/VerifyOtp';
 import Doctor from '../screen/doctor/Doctor';
 import Patient from '../screen/patient/Patient';
+import TabNavigationForPatient from './tabNavigationForPatient/TabNavigationForPatient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {decodeJwtToken} from '../utils/decodeJwtToken';
+import TabNavigationForDoctor from './tabNavigationForDoctor/TabNavigationForDoctor';
+import SearchAppointments from '../screen/doctor/searchAppointments/SearchAppointments';
+import SearchPatients from '../screen/doctor/searchPatients/SearchPatients';
+import DoctorUnavailability from '../screen/doctor/doctorUnavailability/DoctorUnavailability';
 
 export default function Navigation() {
   const Stack = createStackNavigator<RootStackParamList>();
+  const [role, setRole] = useState<string | undefined>('');
+  useEffect(() => {
+    const fetchRole = async () => {
+      const token = await decodeJwtToken();
+      setRole(token?.decode.role);
+    };
+    fetchRole();
+  }, []);
 
   return (
     <Stack.Navigator
-      initialRouteName="Splash"
+      initialRouteName="DoctorUnavailability"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="Splash" component={Splash} />
-      <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="OnBoarding" component={OnBoarding} />
       <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="LoginWithPhoneNo" component={LoginWithPhoneNo} />
@@ -34,6 +48,18 @@ export default function Navigation() {
       <Stack.Screen name="NewPassword" component={NewPassword} />
       <Stack.Screen name="Doctor" component={Doctor} />
       <Stack.Screen name="Patient" component={Patient} />
+      <Stack.Screen name="SearchAppointments" component={SearchAppointments} />
+      <Stack.Screen name="SearchPatients" component={SearchPatients} />
+      <Stack.Screen
+        name="DoctorUnavailability"
+        component={DoctorUnavailability}
+      />
+
+      {role === 'PATIENT' ? (
+        <Stack.Screen name="Home" component={TabNavigationForPatient} />
+      ) : (
+        <Stack.Screen name="Home" component={TabNavigationForDoctor} />
+      )}
     </Stack.Navigator>
   );
 }
