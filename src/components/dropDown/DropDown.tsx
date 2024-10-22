@@ -10,10 +10,10 @@ const DropDown: React.FC<DropDownTypes> = ({
   labelSecondryColor,
   data,
   selectedValue,
+  label,
   setSelectedValue,
 }) => {
   const [isClicked, setIsClicked] = useState(false);
-  //   const [selectedValue, setSelectedValue] = useState('');
   const handleToogleDropDown = () => {
     setIsClicked(!isClicked);
   };
@@ -46,7 +46,7 @@ const DropDown: React.FC<DropDownTypes> = ({
           labelSecondryColor && {color: COLORS.secondry},
         ]}>
         {/* {label} */}
-        Role
+        {label}
       </Text>
       <TouchableOpacity
         style={{
@@ -96,7 +96,7 @@ const DropDown: React.FC<DropDownTypes> = ({
               keyExtractor={item => item}
               nestedScrollEnabled={true}
             /> */}
-            {data.map(item => (
+            {data?.map(item => (
               <TouchableOpacity
                 key={item}
                 style={{
@@ -106,8 +106,6 @@ const DropDown: React.FC<DropDownTypes> = ({
                   borderBottomWidth: 0.5,
                   display: 'flex',
                   alignItems: 'center',
-                  flexDirection: 'row',
-                  gap: 10,
                 }}
                 onPress={() => handleSelect(item)}>
                 <Text style={{textAlign: 'center'}}>{item}</Text>

@@ -1,7 +1,12 @@
 import {useState} from 'react';
 import {selectStartAndEndTime} from '../../../utils/selectStartAndEndTime';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from 'react-native-screens/lib/typescript/native-stack/types';
+import {RootStackParamList} from '../../../types/Types';
 
-export const useDoctorUnavailability = () => {
+export const useDoctorAvailability = () => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [startTimePickerVisible, setStartTimePickerVisible] = useState(false);
   const [endTimePickerVisible, setEndTimePickerVisibility] = useState(false);
   const [selectedStartTime, setSelectedStartTime] = useState<Date | string>(
@@ -10,6 +15,7 @@ export const useDoctorUnavailability = () => {
   const [selectedEndTime, setSelectedEndTime] = useState<Date | string>(
     'Select End Time',
   );
+
   const {
     handleEndTimeConfirm,
     handleStartTimeConfirm,
@@ -27,44 +33,24 @@ export const useDoctorUnavailability = () => {
     setSelectedEndTime,
     setSelectedStartTime,
   });
-  // const showStartTimePicker = () => {
-  //   setStartTimePickerVisibility(true);
-  // };
-  // const hideStartTimePicker = () => {
-  //   setStartTimePickerVisibility(false);
-  // };
-  // const showEndTimePicker = () => {
-  //   setEndTimePickerVisibility(true);
-  // };
-  // const hideEndTimePicker = () => {
-  //   setEndTimePickerVisibility(false);
-  // };
-  // const handleStartTimeConfirm = (date: Date) => {
-  //   console.log('A Date has been Picked', date);
-  //   setSelectedStartTime(date);
-  //   hideStartTimePicker();
-  // };
-  // const handleEndTimeConfirm = (date: Date) => {
-  //   console.log('A Date has been Picked', date.toTimeString());
-  //   setSelectedEndTime(date);
-  //   hideEndTimePicker();
-  // };
-  const handleSubmitUnavailability = (selectedDate: string) => {
-    const date = `${selectedDate}T00:00:00.000Z`;
-    console.log(
-      'Start Time is',
-      selectedStartTime,
-      'End Time is',
-      selectedEndTime,
-      'Date is',
-      date,
-    );
+  const handleSubmitUnavailability = (openModal: () => void) => {
+    try {
+      console.log(
+        'Start Time is',
+        selectedStartTime,
+        'End Time is',
+        selectedEndTime,
+      );
+      openModal();
+    } catch (error) {
+      console.warn('Something went wrong!');
+    }
   };
   return {
     startTimePickerVisible,
-    setStartTimePickerVisible,
+
     endTimePickerVisible,
-    setEndTimePickerVisibility,
+    navigation,
     showStartTimePicker,
     showEndTimePicker,
     handleStartTimeConfirm,

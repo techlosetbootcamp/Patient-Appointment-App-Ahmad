@@ -26,6 +26,8 @@ export type RootStackParamList = {
   SearchAppointments: undefined;
   SearchPatients: undefined;
   DoctorUnavailability: undefined;
+  DoctorAvailability: undefined;
+  AddDoctorInfo: undefined;
 };
 export type OnBoardingTypes = {
   id: string;
@@ -43,6 +45,7 @@ export type ButtonProps = {
   textPrimary?: boolean;
   textSecondry?: boolean;
   padding?: boolean;
+  decreaseHeight?: boolean;
 };
 export type AuthPageProps = {
   goBack?: boolean;
@@ -80,6 +83,7 @@ export type CountrieType = {
 };
 export type DropDownTypes = {
   data: string[];
+  label: string;
   isWidthFull?: boolean;
   isWidthHalf?: boolean;
   labelSecondryColor?: boolean;
@@ -124,4 +128,20 @@ export type SegmentedControlProps = {
   options: string[];
   selectedOption: string;
   onOptionPress?: (option: string) => void;
+};
+export type selectStartAndEndTimeProps = {
+  startTimePickerVisible: boolean;
+  endTimePickerVisible: boolean;
+  setStartTimePickerVisible: (visible: boolean) => void;
+  setEndTimePickerVisibility: (visible: boolean) => void;
+  selectedStartTime: Date | string;
+  selectedEndTime: Date | string;
+  setSelectedStartTime: (time: Date | string) => void;
+  setSelectedEndTime: (time: Date | string) => void;
+};
+export type modalProps = {
+  isOpen: boolean;
+  setIsOpen: (visible: boolean) => void;
+  headerText: string;
+  children: React.ReactNode;
 };

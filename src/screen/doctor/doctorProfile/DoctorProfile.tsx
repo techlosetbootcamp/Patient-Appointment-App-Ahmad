@@ -38,6 +38,30 @@ const DoctorProfile = () => {
           paddingHorizontal: 20,
         }}>
         <TouchableOpacity
+          onPress={() => navigation.navigate('AddDoctorInfo')}
+          style={{
+            height: 62,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}>
+          <Text style={{fontSize: 16}}>Add Your Information</Text>
+          <AntDesign name="right" size={26} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('DoctorAvailability')}
+          style={{
+            height: 62,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}>
+          <Text style={{fontSize: 16}}>Add Availability Hours</Text>
+          <AntDesign name="right" size={26} />
+        </TouchableOpacity>
+        <TouchableOpacity
           onPress={() => navigation.navigate('DoctorUnavailability')}
           style={{
             height: 62,

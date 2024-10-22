@@ -8,4 +8,5 @@ export const COLORS = {
   grayC: '#CCCCCC',
   grayDark: '#666666',
   inputBg: '#F2F2F2',
+  primaryLowOpacity: '#195b5c',
 };

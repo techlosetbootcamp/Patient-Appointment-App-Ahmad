@@ -14,6 +14,7 @@ const Button: React.FC<ButtonProps> = ({
   textPrimary,
   textSecondry,
   padding,
+  decreaseHeight,
 }) => {
   return (
     <TouchableOpacity
@@ -36,6 +37,9 @@ const Button: React.FC<ButtonProps> = ({
           borderWidth: 1,
           borderColor: COLORS.secondry,
           borderRadius: 10,
+        },
+        decreaseHeight && {
+          height: 44,
         },
       ]}
       onPress={onPress}>

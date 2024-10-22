@@ -1,21 +1,18 @@
-import {View, Text, TouchableOpacity, StatusBar} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {Calendar} from 'react-native-calendars';
-import Header from '../../../components/header/Header';
+import {StatusBar, Text, TouchableOpacity, View} from 'react-native';
+import {Calendar, DateData} from 'react-native-calendars';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import Button from '../../../components/button/Button';
+import Header from '../../../components/header/Header';
 import {COLORS} from '../../../constants/colors';
 import {useDoctorUnavailability} from './useDoctorUnavailability';
-import Button from '../../../components/button/Button';
-import DateTimePicker from 'react-native-modal-datetime-picker';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 const DoctorUnavailability = () => {
   const today = new Date().toISOString().split('T')[0];
   const [selectedDate, setSelectedDate] = useState<string>(today);
   const {
     endTimePickerVisible,
-    setEndTimePickerVisibility,
-    setStartTimePickerVisibility,
     startTimePickerVisible,
     handleEndTimeConfirm,
     handleStartTimeConfirm,
@@ -83,8 +80,8 @@ const DoctorUnavailability = () => {
               selectedTextColor: 'white',
             },
           }}
-          onDayPress={day => {
-            setSelectedDate(day);
+          onDayPress={(day: DateData) => {
+            setSelectedDate(day.dateString);
           }}
           renderArrow={(Direction: string) => (
             <AntDesign
@@ -142,7 +139,9 @@ const DoctorUnavailability = () => {
         <View style={{marginTop: 50}}>
           <Button
             title="Add Unavailabilty"
-            onPress={() => handleSubmitUnavailability(selectedDate)}
+            onPress={() => {
+              handleSubmitUnavailability(selectedDate);
+            }}
           />
         </View>
       </View>

@@ -11,6 +11,7 @@ const Header = ({children}: {children: React.ReactNode}) => {
         display: 'flex',
         justifyContent: 'center',
         paddingHorizontal: 20,
+        zIndex: 1,
       }}>
       {children}
     </View>

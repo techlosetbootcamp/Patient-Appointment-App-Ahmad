@@ -33,7 +33,6 @@ export default function Signup() {
     setRole,
     submitHandler,
     ROLE,
-    error,
     selectedCountryCode,
     setSelectedCountryCode,
     errorstate,
@@ -67,6 +66,7 @@ export default function Signup() {
                 data={ROLE}
                 selectedValue={role}
                 setSelectedValue={setRole}
+                label="Role"
               />
             </View>
             <Input

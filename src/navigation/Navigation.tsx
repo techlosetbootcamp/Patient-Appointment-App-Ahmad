@@ -21,6 +21,8 @@ import TabNavigationForDoctor from './tabNavigationForDoctor/TabNavigationForDoc
 import SearchAppointments from '../screen/doctor/searchAppointments/SearchAppointments';
 import SearchPatients from '../screen/doctor/searchPatients/SearchPatients';
 import DoctorUnavailability from '../screen/doctor/doctorUnavailability/DoctorUnavailability';
+import DoctorAvailability from '../screen/doctor/doctorAvailability/DoctorAvailability';
+import AddDoctorInfo from '../screen/doctor/addDoctorInfo/AddDoctorInfo';
 
 export default function Navigation() {
   const Stack = createStackNavigator<RootStackParamList>();
@@ -35,7 +37,7 @@ export default function Navigation() {
 
   return (
     <Stack.Navigator
-      initialRouteName="DoctorUnavailability"
+      initialRouteName="Splash"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="Splash" component={Splash} />
       <Stack.Screen name="OnBoarding" component={OnBoarding} />
@@ -50,10 +52,12 @@ export default function Navigation() {
       <Stack.Screen name="Patient" component={Patient} />
       <Stack.Screen name="SearchAppointments" component={SearchAppointments} />
       <Stack.Screen name="SearchPatients" component={SearchPatients} />
+      <Stack.Screen name="AddDoctorInfo" component={AddDoctorInfo} />
       <Stack.Screen
         name="DoctorUnavailability"
         component={DoctorUnavailability}
       />
+      <Stack.Screen name="DoctorAvailability" component={DoctorAvailability} />
 
       {role === 'PATIENT' ? (
         <Stack.Screen name="Home" component={TabNavigationForPatient} />
