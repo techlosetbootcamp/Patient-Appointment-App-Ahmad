@@ -1,4 +1,4 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import Entypo from 'react-native-vector-icons/Entypo';
 import {AppointmentInfoType} from '../../../types/Types';
@@ -9,6 +9,7 @@ const AppointmentInfo: React.FC<AppointmentInfoType> = ({
   name,
   profilePicture,
   status,
+  onPress,
 }) => {
   let backgroundColor;
   switch (status) {
@@ -33,7 +34,9 @@ const AppointmentInfo: React.FC<AppointmentInfoType> = ({
       break;
   }
   return (
-    <View
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={onPress ? 0.7 : 1}
       style={{
         height: 60,
         display: 'flex',
@@ -41,7 +44,6 @@ const AppointmentInfo: React.FC<AppointmentInfoType> = ({
         justifyContent: 'space-between',
         alignItems: 'flex-start',
         marginBottom: 10,
-        // backgroundColor: 'salmon',
       }}>
       <View
         style={{
@@ -82,7 +84,7 @@ const AppointmentInfo: React.FC<AppointmentInfoType> = ({
       <View>
         <Entypo name="dots-three-vertical" size={25} />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

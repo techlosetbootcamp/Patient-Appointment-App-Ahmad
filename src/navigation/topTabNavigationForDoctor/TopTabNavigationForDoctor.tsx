@@ -62,18 +62,17 @@ const TopTabNavigationForDoctor = () => {
 
       <TopTab.Navigator
         id="TopTabNavigatorForDoctor"
-        // screenOptions={{
-        //   tabBarLabelStyle: {fontSize: 12, color: COLORS.primary},
-        //   tabBarIndicatorStyle: {backgroundColor: COLORS.primary},
-        //   tabBarStyle: {backgroundColor: 'white', height: 42},
-        // }}
-      >
+        screenOptions={{
+          tabBarLabelStyle: {fontSize: 12, color: COLORS.primary},
+          tabBarIndicatorStyle: {backgroundColor: COLORS.primary},
+          tabBarStyle: {backgroundColor: 'white', height: 42},
+        }}>
         {screens.map(screen => (
           <TopTab.Screen
             key={screen.name}
             name={screen.name}
             component={screen.component}
-            // options={{tabBarLabel: screen.label}}
+            options={{tabBarLabel: screen.label}}
           />
         ))}
       </TopTab.Navigator>

@@ -1,11 +1,11 @@
-import {useMutation} from '@apollo/client';
-import {useState} from 'react';
-import {LOGIN_WITH_EMAIL} from '../../../graphql/mutations/loginWithEmail';
-import Toast from 'react-native-toast-message';
+import { useMutation } from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../../../types/Types';
-import {NativeStackNavigationProp} from 'react-native-screens/lib/typescript/native-stack/types';
+import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
+import { NativeStackNavigationProp } from 'react-native-screens/lib/typescript/native-stack/types';
+import Toast from 'react-native-toast-message';
+import { LOGIN_WITH_EMAIL } from '../../../graphql/mutations/loginWithEmail';
+import { RootStackParamList } from '../../../types/Types';
 enum Role {
   DOCTOR = 'DOCTOR',
   PATIENT = 'PATIENT',

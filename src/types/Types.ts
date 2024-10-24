@@ -5,6 +5,7 @@ import {
   InputModeOptions,
   KeyboardTypeOptions,
 } from 'react-native';
+import {SerializedError} from '@reduxjs/toolkit';
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -28,6 +29,9 @@ export type RootStackParamList = {
   DoctorUnavailability: undefined;
   DoctorAvailability: undefined;
   AddDoctorInfo: undefined;
+  PatientProfileInfo: {
+    id: number;
+  };
 };
 export type OnBoardingTypes = {
   id: string;
@@ -113,11 +117,13 @@ export enum AppointmentStatus {
   CANCELLED = 'CANCELLED',
 }
 export type AppointmentInfoType = {
+  id: number;
   profilePicture?: string;
   name?: string;
   age?: string;
   appointmentTime?: string;
   status?: AppointmentStatus;
+  onPress?: () => void;
 };
 export type PatientsFilterModalProps = {
   visible: boolean;
@@ -144,4 +150,55 @@ export type modalProps = {
   setIsOpen: (visible: boolean) => void;
   headerText: string;
   children: React.ReactNode;
+};
+export type headerProps = {
+  children?: React.ReactNode;
+  goBack?: boolean;
+  headerText?: string;
+};
+
+export enum Gender {
+  MALE = 'MALE',
+  FEMALE = 'FEMALE',
+  OTHERS = 'OTHERS',
+}
+export type getTodayAppointmentsTypes = {
+  id: number;
+  fullName: string;
+  age: string;
+  gender: Gender;
+  phoneNo: string;
+  address: string;
+  email: string;
+  medicalHistory: string;
+  presciptions: [string];
+  details?: string;
+  scheduledDate?: Date;
+  status?: AppointmentStatus;
+  startTime: Date;
+  endTime: Date;
+  doctorId?: string;
+  patientId?: string;
+};
+export type getTodayAppointmentState = {
+  appointment: getTodayAppointmentsTypes[] | null;
+  isLoading: boolean;
+  error: string | null;
+};
+export type doctorInfo = {
+  name: string;
+  email?: string;
+  gender?: string;
+  address?: string;
+  profilePhoto?: string;
+};
+export type doctorInfoState = {
+  doctor: doctorInfo | doctorInfo[] | null | undefined;
+  isLoading: boolean;
+  error: string | null;
+};
+export type getdoctorInfoState = {
+  doctor: doctorInfo | null | undefined;
+  isLoading: boolean;
+  error: string | null;
 };

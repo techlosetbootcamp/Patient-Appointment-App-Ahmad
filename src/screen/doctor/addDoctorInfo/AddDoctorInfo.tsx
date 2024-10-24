@@ -1,19 +1,18 @@
+import React from 'react';
 import {
-  View,
-  Text,
-  TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import React from 'react';
-import Header from '../../../components/header/Header';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import Feather from 'react-native-vector-icons/Feather';
-import {useAddDoctorInfo} from './useAddDoctorInfo';
-import Input from '../../../components/input/Input';
-import DropDown from '../../../components/dropDown/DropDown';
 import Button from '../../../components/button/Button';
+import DropDown from '../../../components/dropDown/DropDown';
+import Header from '../../../components/header/Header';
+import Input from '../../../components/input/Input';
+import {useAddDoctorInfo} from './useAddDoctorInfo';
 
 const AddDoctorInfo = () => {
   const {
@@ -26,6 +25,8 @@ const AddDoctorInfo = () => {
     setAddress,
     setDisplayName,
     submitHandler,
+    isLoading,
+    errorState,
   } = useAddDoctorInfo();
   return (
     <KeyboardAvoidingView
@@ -33,36 +34,9 @@ const AddDoctorInfo = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView style={{backgroundColor: 'white'}} bounces={false}>
         <View style={{backgroundColor: 'white', height: '100%'}}>
-          <Header>
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-                <AntDesign name="arrowleft" size={26} color={'white'} />
-              </TouchableOpacity>
-              <View
-                style={{
-                  flex: 1,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Text
-                  style={{
-                    fontSize: 18,
-                    fontWeight: '700',
-                    color: 'white',
-                    marginRight: 30,
-                  }}>
-                  Add Info
-                </Text>
-              </View>
-            </View>
-          </Header>
-          <View style={{flex: 1, marginVertical: 10, paddingHorizontal: 20}}>
+          <Header goBack headerText="Add info" />
+
+          <View style={{flex: 1, marginTop: 20, paddingHorizontal: 20}}>
             <View
               style={{
                 display: 'flex',
@@ -114,14 +88,18 @@ const AddDoctorInfo = () => {
                 setSelectedValue={setGender}
                 label="Gender"
               />
+              {errorState && <Text style={{color: 'red'}}>{errorState}</Text>}
             </View>
-            {/* <Input label="Email" inputMode="email" /> */}
+
             <View
               style={{
                 marginTop: '20%',
               }}>
               <View>
-                <Button title="Add Info" onPress={submitHandler} />
+                <Button
+                  title={isLoading ? 'Loading...' : 'Add Info'}
+                  onPress={submitHandler}
+                />
               </View>
             </View>
           </View>

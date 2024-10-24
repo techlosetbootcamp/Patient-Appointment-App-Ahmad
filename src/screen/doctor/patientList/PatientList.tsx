@@ -28,6 +28,7 @@ const PatientList = () => {
   const [ageSelectedOption, setAgeSelectedOption] = useState('');
   const [maxage, setMaxAge] = useState(0);
   const [minage, setMinAge] = useState(0);
+
   const fadeIn = () => {
     opacity.setValue(0);
     Animated.timing(opacity, {
@@ -104,9 +105,13 @@ const PatientList = () => {
             data={appointments}
             renderItem={({item}: {item: AppointmentInfoType}) => (
               <AppointmentInfo
-                age={item.age}
-                name={item.name}
+                age={item?.age}
+                name={item?.name}
                 profilePicture={item.profilePicture}
+                id={item?.id}
+                onPress={() => {
+                  navigation.navigate('PatientProfileInfo', {id: item?.id});
+                }}
               />
             )}
             showsVerticalScrollIndicator={false}

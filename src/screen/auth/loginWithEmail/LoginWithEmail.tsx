@@ -21,25 +21,9 @@ const LoginWithEmail = () => {
   } = useLoginWithEmail();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  // const [token, setToken] = useState<string | null>(null);
-
-  // useEffect(() => {
-  //   const fetchToken = async () => {
-  //     try {
-  //       const storedToken = await AsyncStorage.getItem('authToken');
-  //       setToken(storedToken);
-  //     } catch (error) {
-  //       console.log('Error fetching token:', error);
-  //     }
-  //   };
-
-  //   fetchToken();
-  // }, []);
-
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <AuthPage title="Login With Email">
-        {/* <Text>Token: {token}</Text> */}
         <Input
           label="Email"
           value={email}

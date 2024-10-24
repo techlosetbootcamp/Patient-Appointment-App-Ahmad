@@ -1,13 +1,8 @@
-import {
-  NavigationProp,
-  StackActions,
-  useNavigation,
-} from '@react-navigation/native';
-import {useEffect, useState} from 'react';
-import {RootStackParamList} from '../../types/Types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {decodeJwtToken} from '../../utils/decodeJwtToken';
+import {StackActions, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {useEffect} from 'react';
+import {RootStackParamList} from '../../types/Types';
 
 export const useSplash = async () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -22,11 +17,8 @@ export const useSplash = async () => {
           navigation.dispatch(StackActions.replace('OnBoarding'));
         } else {
           if (token) {
-            // navigation.dispatch(StackActions.replace(''));
             navigation.replace('Home');
-          }
-          // navigation.dispatch(StackActions.replace('LoginWithEmail'));
-          else {
+          } else {
             navigation.replace('LoginWithEmail');
           }
         }
